@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  price: {type: Number, required: true}
-})
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+});
 
 const restaurantSchema = new mongoose.Schema(
   {
@@ -19,6 +19,10 @@ const restaurantSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    country: {
+      type: String,
+      required: true,
+    },
     deliveryPrice: {
       type: Number,
       required: true,
@@ -30,10 +34,10 @@ const restaurantSchema = new mongoose.Schema(
     cuisines: [{ type: String, required: true }],
     menuItems: [menuItemSchema],
     imgeUrl: { type: String, required: true },
-    lastUpdate: {type: Date, required: true}
+    lastUpdate: { type: Date, required: true },
   },
   { timestamps: true }
 );
 
-const Restaurant =  mongoose.model("Restaurant", restaurantSchema)
-export default Restaurant
+const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+export default Restaurant;
