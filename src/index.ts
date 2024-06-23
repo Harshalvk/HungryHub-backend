@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./db/connectDB";
 import userRouter from "./routes/user.route";
+import restaurantRouter from "./routes/restaurant.route";
 import { v2 as cloudinary } from "cloudinary";
 
+//Database connection
 connectDB();
 
 cloudinary.config({
@@ -15,14 +17,19 @@ cloudinary.config({
 });
 
 const app = express();
+
+//global middlewares
 app.use(express.json());
 app.use(cors());
 
-app.get("/health", async (req: Request, res: Response) => {
+//health check for render deployment
+app.get("/health", async (_, res: Response) => {
   res.send({ msg: "health OK!" });
 });
 
+//routes
 app.use("/api/my/user", userRouter);
+app.use("/api/my/restaurant", restaurantRouter);
 
 app.listen(8080, () => {
   console.log("🚀 Server is listening on port 8080");
