@@ -4,8 +4,15 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDB from "./db/connectDB";
 import userRouter from "./routes/user.route";
+import { v2 as cloudinary } from "cloudinary";
 
 connectDB();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDIARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 app.use(express.json());

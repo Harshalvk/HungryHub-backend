@@ -6,6 +6,9 @@ declare global {
       MONGODB_URI: string;
       AUTH0_AUDIENCE: string;
       AUTH0_ISSUER_BASE_URL: string;
+      CLOUDINARY_CLOUD_NAME: string;
+      CLOUDIARY_API_KEY: string;
+      CLOUDINARY_API_SECRET: string;
     }
   }
 }
