@@ -7,12 +7,13 @@ const createMyRestaurant = async (req: Request, res: Response) => {
   try {
     const existingRestaurant = await Restaurant.findOne({ user: req.userId });
     console.log(existingRestaurant);
-    
+
     if (existingRestaurant) {
       return res.status(409).json({ msg: "User restaurant already exists" });
     }
     const image = req.file as Express.Multer.File;
-    const base64Image = Buffer.from(image.buffer).toString('base64') || undefined;
+    const base64Image =
+      Buffer.from(image.buffer).toString("base64") || undefined;
     const dataURI = `data:${image.mimetype};base64,${base64Image}`;
 
     const uploadResponse = await cloudinary.v2.uploader.upload(dataURI);
@@ -30,4 +31,17 @@ const createMyRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export { createMyRestaurant };
+const getMyRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurant = await Restaurant.findOne({ user: req.userId });
+    if (!restaurant){
+      return res.status(404).json({ msg: "Restaurant not found!" });
+    }
+    res.json(restaurant);
+  } catch (error) {
+    console.log("🚨 Error fetching Restaurant", error);
+    res.status(500).json({ msg: "Error fetching restaurant!" });
+  }
+};
+
+export { createMyRestaurant, getMyRestaurant };
