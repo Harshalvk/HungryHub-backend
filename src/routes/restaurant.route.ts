@@ -5,7 +5,7 @@ import { searchRestaurant } from "../controllers/restaurant.controller";
 const router = express.Router();
 
 router.get(
-  "/serach/:city",
+  "/search/:city",
   param("city")
     .isString()
     .trim()
