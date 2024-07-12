@@ -6,6 +6,7 @@ import connectDB from "./db/connectDB";
 import userRouter from "./routes/user.route";
 import myRestaurantRouter from "./routes/myRestaurant.route";
 import restaurantRouter from "./routes/restaurant.route";
+import orderRouter from './routes/order.route'
 import { v2 as cloudinary } from "cloudinary";
 
 //Database connection
@@ -32,6 +33,7 @@ app.get("/health", async (_, res: Response) => {
 app.use("/api/my/user", userRouter);
 app.use("/api/my/restaurant", myRestaurantRouter);
 app.use("/api/restaurant", restaurantRouter);
+app.use("/api/order", orderRouter);
 
 app.listen(8080, () => {
   console.log("🚀 Server is listening on port 8080");
