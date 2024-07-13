@@ -6,7 +6,7 @@ import connectDB from "./db/connectDB";
 import userRouter from "./routes/user.route";
 import myRestaurantRouter from "./routes/myRestaurant.route";
 import restaurantRouter from "./routes/restaurant.route";
-import orderRouter from './routes/order.route'
+import orderRouter from "./routes/order.route";
 import { v2 as cloudinary } from "cloudinary";
 
 //Database connection
@@ -21,8 +21,9 @@ cloudinary.config({
 const app = express();
 
 //global middlewares
-app.use(express.json());
 app.use(cors());
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
+app.use(express.json());
 
 //health check for render deployment
 app.get("/health", async (_, res: Response) => {

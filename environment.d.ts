@@ -11,6 +11,7 @@ declare global {
       CLOUDINARY_API_SECRET: string;
       STRIPE_API_KEY: string;
       FRONTEND_URL: string;
+      STRIPE_WEBHOOK_SECRET: string
     }
   }
 }
