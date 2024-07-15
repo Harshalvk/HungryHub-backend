@@ -5,6 +5,7 @@ import {
   getMyRestaurant,
   getMyRestaurantOrders,
   updateMyRestaurant,
+  updateOrderStatus,
 } from "../controllers/myRestaurant.controller";
 import { validateMyRestaurantRequest } from "../middleware/validation";
 import { jwtCheck, jwtParse } from "../middleware/auth";
@@ -19,6 +20,7 @@ const upload = multer({
   },
 });
 
+router.patch("/order/:orderId/status", jwtCheck, jwtParse, updateOrderStatus);
 router.get("/order", jwtCheck, jwtParse, getMyRestaurantOrders);
 router.get("/", jwtCheck, jwtParse, getMyRestaurant);
 router.post(

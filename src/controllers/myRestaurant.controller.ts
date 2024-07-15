@@ -90,6 +90,31 @@ const getMyRestaurantOrders = async (req: Request, res: Response) => {
   }
 };
 
+const updateOrderStatus = async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ msg: "order not found" });
+    }
+
+    const restaurant = await Restaurant.findById(order.restaurant);
+
+    if (restaurant?.user?._id.toString() !== req.userId) {
+      return res.status(401).send();
+    }
+    order.status = status;
+    await order.save();
+
+    res.status(200).json(order);
+  } catch (error) {
+    console.log("🚨Error updating order status: \n", error);
+    res.status(500).json({ msg: "unable to update order status" });
+  }
+};
+
 const uploadImage = async (file: Express.Multer.File) => {
   const image = file;
   const base64Image = Buffer.from(image.buffer).toString("base64") || undefined;
@@ -104,4 +129,5 @@ export {
   getMyRestaurant,
   updateMyRestaurant,
   getMyRestaurantOrders,
+  updateOrderStatus
 };
